@@ -1,2 +1,2 @@
 def test_basic_arithmetic():
-    assert 2 + 2 == 4
+    assert 2 + 2 == 5
