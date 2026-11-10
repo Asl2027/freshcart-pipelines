@@ -1,8 +1,15 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-if 'transformer' not in globals():
+try:
     from mage_ai.data_preparation.decorators import transformer, test
+except ImportError:
+    def transformer(func):
+        return func
+
+    def test(func):
+        return func
+
 
 @transformer
 def transform(df, *args, **kwargs):
@@ -20,6 +27,7 @@ def transform(df, *args, **kwargs):
     test_df['split'] = 'test'
 
     return pd.concat([train_df, test_df]).sort_index()
+
 
 @test
 def test_output(output, *args):
